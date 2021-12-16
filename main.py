@@ -1,54 +1,51 @@
-## EJERCICIO 5--------------------
+##-------- EJERCICIO 6 ---------
 
-# En este ejercicio, hay que determinar el ganador de un juego de fibonacci, donde la persona que llegue a la raiz del arbol es la que pierde.
-# En este caso, para resolver el ejercicio, usé recursion ya que es una llamada constante para determinar el numero de nodos que se encuentra en el arbol,
-# para determinar el ganador, fue sencillo, calculé el numero de nodos que tiene todo el arbol, dependiendo de la raiz, de tal manera que si, el arbol tiene
-# un número par de nodos, el ganador será Alice y si el arbol, tiene un numero impar de nodos, el ganador sera Bob.
+# En este caso, el ejercicio nos da un arreglo donde tenemos un tamaño determinado. Lo que nos pide este ejercicio es crear sub-arreglos,
+# partiendo del arreglo inicial y posteriormente obtener las sumas que sean impares. Lo que se hizo en este ejercicio es determinar el tamaño del arreglo,
+# de tal forma que podamos saber hasta donde se tienen que formar sub-arreglos. Se crea una variable posicion la cual recorrera todo el arreglo y posteriormente se
+# obtendrá la suma de cada sub-arreglo generado, de tal manera que, esta suma, se añada a un nuevo arreglo con todas las sumas impares.
 
 
 import unittest
 
 
 def TestValue_results():
-    # Ejemplo del proyecto
-    assert ganador(3) == True, "Should be: True"
+    #---Ejercicios del proyecto---
+    assert calculoEjercicio6([1, 3, 5]) == 4, "Should be: 4"
+    assert calculoEjercicio6([2, 4, 6]) == 0, "Should be: 0"
 
-    # Ejemplos propios
-    assert ganador(4) == False, "Should be: False"
-    assert ganador(6) == True, "Should be: True"
-    assert ganador(1) == False, "Should be: False"
-    assert ganador(2) == True, "Should be: True"
+    #---Ejercicios propios---
+    assert calculoEjercicio6([1, 7, 4, 8, 9]) == 8, "Should be: 8"
+    assert calculoEjercicio6([0, 1, 8]) == 4, "Should be: 4"
+    assert calculoEjercicio6([9, 4, 7, 2]) == 6, "Should be: 6"
 
+def calculoEjercicio6(arr):
+    impares = 0
+    for posicion in range(len(arr)):
+        subArreglo = []
+        tamanioSubArr = 0
+        suma = 0
+        while posicion + tamanioSubArr < len(arr):
+            suma += arr[posicion + tamanioSubArr]
+            subArreglo.append(suma)
+            tamanioSubArr += 1
+        #print(subArreglo) si se desea ver los sub arreglos que se forma, quitar le comentario
 
-def order(n):
-    if n == 1:
-        return 1
-    elif n == 0:
-        return 0
+        for i in range(len(subArreglo)):
 
-    numNodos = 1 + order(n - 1) + order(n - 2)
-    return numNodos
-
-
-def ganador(n):
-    numNodos = order(n)
-    if numNodos % 2 == 0:
-        return True
-    else:
-        return False
-
+            if subArreglo[i] % 2 != 0:
+                impares += 1
+    return impares
 
 def main():
-    print("---Ejercicio del proyecto---")
-    print("Output: ", ganador(3))
+    print("---Ejercicios del proyecto---")
+    print("Output: " , calculoEjercicio6([1, 3, 5]))
+    print("Output: ", calculoEjercicio6([2,4,6]))
 
     print("---Ejercicios propios---")
-    print("Output: ", ganador(4))
-    print("Output: ", ganador(6))
-    print("Output: ", ganador(1))
-    print("Output: ", ganador(2))
-
-
+    print("Output" , calculoEjercicio6([1, 7, 4, 8, 9]))
+    print("Output", calculoEjercicio6([0, 1, 8]))
+    print("Output: ", calculoEjercicio6([9, 4, 7, 2]))
     return 0
 
 
