@@ -1,60 +1,55 @@
-##--- EJERCICIO 4 ----
+## EJERCICIO 5--------------------
 
-# En este ejercicio, tenemos un dado de 6 lados que es lanzado un numero m determinado de veces, un numero n de veces que el dado es lanzado, el valor que se obtuvo del dado,
-# se perdió, sin embargo, tenemos el promedio de la suma que da los valores obtenidos de cada lanzada y tambien tenemos los numeros que se obtuvieron y que no se perdieron.
-# Por lo que para resolver para resolver este ejercicio, se debe obtener la suma total con la ayuda del promedio y el numero de veces que se perdieron los datos.
-# Posteriormente se hacen calculso aritmeticos para determinar si las divisiones son pares o impares y con la ayuda del residuo, podremos saber que numeros son los que se perdieron.
-# Hay que tomar en cuenta que si tenemos un numero determinado de tiradas y lo multiplicamos por el numero de lados que tiene el dado, la suma no puede ser mayor a este numero, sino sería un error de bordes.
+# En este ejercicio, hay que determinar el ganador de un juego de fibonacci, donde la persona que llegue a la raiz del arbol es la que pierde.
+# En este caso, para resolver el ejercicio, usé recursion ya que es una llamada constante para determinar el numero de nodos que se encuentra en el arbol,
+# para determinar el ganador, fue sencillo, calculé el numero de nodos que tiene todo el arbol, dependiendo de la raiz, de tal manera que si, el arbol tiene
+# un número par de nodos, el ganador será Alice y si el arbol, tiene un numero impar de nodos, el ganador sera Bob.
 
 
 import unittest
 
 
 def TestValue_results():
-    #Ejemplos proyecto
-    assert calculoEjercicio4([3, 2, 4, 3], 4, 2) == [6, 6], "Should be: [6, 6]"
-    assert calculoEjercicio4([1, 5, 6], 3, 4) == [3, 2, 2, 2], "Should be: [3, 2, 2, 2]"
+    # Ejemplo del proyecto
+    assert ganador(3) == True, "Should be: True"
 
-    #Ejemplos propios
-    assert calculoEjercicio4([6, 6, 5, 3], 4, 4) == [3, 3, 3, 3], "Should be: [3, 3, 3, 3]"
-    assert calculoEjercicio4([1], 2, 1) == [3], "Should be: [3]"
-    assert calculoEjercicio4([1, 2], 3, 2) == [5, 4], "Should be: [5, 4]"
+    # Ejemplos propios
+    assert ganador(4) == False, "Should be: False"
+    assert ganador(6) == True, "Should be: True"
+    assert ganador(1) == False, "Should be: False"
+    assert ganador(2) == True, "Should be: True"
 
 
+def order(n):
+    if n == 1:
+        return 1
+    elif n == 0:
+        return 0
 
-def calculoEjercicio4(roll, mean, n):
-    m = len(roll)  #tamanio arreglo incompleto
+    numNodos = 1 + order(n - 1) + order(n - 2)
+    return numNodos
 
-    totalValores = n + m  #valores del arreglo completo
-    sumaTotal = mean * totalValores #Suma que nos ayudara a obtener el promedio
 
-    sumaArreglo = sum(roll) # Suma del arreglo incompleto
-    sumaNumerosFaltantes = sumaTotal - sumaArreglo #Suma de los numeros que faltan en el arreglo
-
-    divsionConResiduo = sumaNumerosFaltantes // n  #Obtenemos el residuo de la division
-    residuo = sumaNumerosFaltantes % n
-    arrValoresEncontrados = [] # Arreglo para anadir los numeros perdidos
-
-    for i in range(n):
-
-        numeroFinal = divsionConResiduo
-        if residuo > 0:
-            numeroFinal += 1
-            residuo -= 1
-        arrValoresEncontrados.append(numeroFinal)
-    return arrValoresEncontrados
+def ganador(n):
+    numNodos = order(n)
+    if numNodos % 2 == 0:
+        return True
+    else:
+        return False
 
 
 def main():
-    print("---Ejercicios del proyecto---")
-    print("Output: ",  calculoEjercicio4([3, 2, 4, 3], 4, 2))
-    print("Output: ", calculoEjercicio4([1, 5, 6], 3, 4))
+    print("---Ejercicio del proyecto---")
+    print("Output: ", ganador(3))
 
     print("---Ejercicios propios---")
-    print("Output: ", calculoEjercicio4([6, 6, 5, 3], 4, 4))
-    print("Output: ", calculoEjercicio4([1], 2, 1))
-    print("Output: ", calculoEjercicio4([1, 2], 3, 2))
+    print("Output: ", ganador(4))
+    print("Output: ", ganador(6))
+    print("Output: ", ganador(1))
+    print("Output: ", ganador(2))
 
+
+    return 0
 
 
 if __name__ == "__main__":
